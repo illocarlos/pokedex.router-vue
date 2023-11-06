@@ -19,8 +19,25 @@ axios
 <template>
     <ul>
         <li v-for="pokemon in pokemones">
-            <router-link :to="`/pokemones/${pokemon.name}`">{{ pokemon.name }}</router-link>
+            <router-link class="router-link-pokedex" :to="`/pokemones/${pokemon.name}`">{{ pokemon.name }}</router-link>
         </li>
     </ul>
 </template>
-<style lang="scss"></style>
+<style lang="scss">
+li {
+    margin-top: 5px;
+    color: white;
+    font-size: 20px;
+}
+
+.router-link-pokedex {
+    text-decoration: none;
+    color: white;
+
+
+}
+
+li:hover {
+    color: red;
+}
+</style>

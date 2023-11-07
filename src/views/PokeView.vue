@@ -1,49 +1,33 @@
 <script setup>
-import axios from 'axios';
-import { ref } from 'vue';
+import { UsegetData } from '../composable/getData';
 //este hook tiene acceso a los parametros es decir al params.name y recoge la informacion
 //de ese objeto en concreto
 import { useRoute } from 'vue-router';
-//lo iniciaizamos y activamos el hook
 const route = useRoute();
-const poke = ref({})
+const { data, getData } = UsegetData()
+//lo iniciaizamos y activamos el hook
 
+getData(`https://pokeapi.co/api/v2/pokemon/${route.params.name}`);
 
-//forma de llamar una api mas acorde 
-const getData = async () => {
-    try {
-        const { data } = await axios.get
-            (`https://pokeapi.co/api/v2/pokemon/${route.params.name}`);
-        poke.value = data;
-        console.log(poke.value)
-    } catch (error) {
-        console.log(error)
-        poke.value = null
-
-    }
-
-}
-
-getData();
 </script>
 
 <template>
-    <div v-if="poke" class="title-poke">
+    <div v-if="data" class="title-poke">
         <h1>{{ $route.params.name }}</h1>
 
         <div class="date-poke">
             <div>
                 <p>normal</p>
-                <img :src="poke.sprites?.front_default" alt="">
+                <img :src="data.sprites?.front_default" alt="">
             </div>
             <div>
                 <p>shiny</p>
-                <img :src="poke.sprites?.front_shiny" alt="">
+                <img :src="data.sprites?.front_shiny" alt="">
             </div>
         </div>
         <h1>Move</h1>
         <div class="total">
-            <div class="moove" v-for="pokemon in poke.moves">
+            <div class="moove" v-for="pokemon in data.moves">
                 <p>
                     <template v-if="pokemon.version_group_details[0].level_learned_at > 0">
                         lvl {{ pokemon.version_group_details[0].level_learned_at }}-

@@ -1,11 +1,13 @@
 <script setup>
 import { useFavStore } from '@/store/fav'
 import { storeToRefs } from 'pinia';
+import { RouterLink } from 'vue-router';
+
+
 const useFav = useFavStore()
-
 const { fav } = storeToRefs(useFav)
-
 const { remove } = useFav
+
 
 </script>
 
@@ -20,7 +22,10 @@ const { remove } = useFav
                 <div class="card">
                     <img :src="pokeFav.sprites?.front_default" alt="">
                     <p>N{{ pokeFav.id }}-{{ pokeFav.name }}</p>
-                    <button @click="remove(pokeFav.id)">eliminar</button>
+                    <div class="colum-btn">
+                        <button @click="remove(pokeFav.id)">eliminar</button>
+                        <RouterLink class="link-Detail" :to="`/pokemones/${pokeFav.name}`">detalles</RouterLink>
+                    </div>
                 </div>
             </li>
         </ul>
@@ -64,11 +69,39 @@ const { remove } = useFav
             p {
                 color: black;
             }
+
+            p:hover {
+                color: white;
+            }
+
+            button {
+                cursor: pointer;
+                padding: 10px;
+                border-radius: 20px;
+            }
+
+            button:hover {
+                background-color: red;
+                color: white;
+            }
+
+            .link-Detail {
+                border: 1px solid rgb(74, 72, 72);
+                padding: 5px;
+                border-radius: 20px;
+                text-decoration: none;
+                color: white;
+                background-color: red;
+            }
+
+            .link-Detail:hover {
+
+                color: rgb(0, 0, 0);
+                background-color: white;
+            }
         }
 
-        p:hover {
-            color: white;
-        }
+
     }
 
 

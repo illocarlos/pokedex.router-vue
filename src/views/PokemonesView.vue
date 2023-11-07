@@ -10,8 +10,10 @@ getData('https://pokeapi.co/api/v2/pokemon')
 </script>
 <template>
     <div class="contLis">
-        <button class="btn-pre" @click="getData(data.previous)" :disabled="data.previous === null">Previous</button>
-        <button class=" btn-next" @click="getData(data.next)" :disabled="data.next === null">Next</button>
+        <div>
+            <button class="btn-pre" @click="getData(data.previous)" :disabled="data.previous === null">Back</button>
+            <button class=" btn-next" @click="getData(data.next)" :disabled="data.next === null">Next</button>
+        </div>
         <ul>
             <li v-for="pokemon, index  in data.results">
                 <router-link class="router-link-pokedex" :to="`/pokemones/${pokemon.name}`">{{ index + 1 }}-- {{
@@ -24,12 +26,23 @@ getData('https://pokeapi.co/api/v2/pokemon')
 </template>
 <style lang="scss">
 .contLis {
+
     margin-top: 90px;
     text-align: center;
+
+    div {
+
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-around;
+
+    }
 }
 
 .btn-pre,
 .btn-next {
+    text-align: center;
+    width: 70px;
     color: white;
     cursor: pointer;
     margin-left: 5px;
@@ -45,7 +58,7 @@ getData('https://pokeapi.co/api/v2/pokemon')
 
 .btn-pre:hover {
     background-color: rgb(255, 255, 255);
-    color: black;
+    color: rgb(0, 0, 0);
 }
 
 ul {

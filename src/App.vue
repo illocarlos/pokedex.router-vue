@@ -9,13 +9,21 @@ import { RouterLink, RouterView } from 'vue-router'
     </RouterLink>
     <nav>
       <RouterLink class="RouterLink-nav" to="/pokemones"> Pokedex</RouterLink>
+      <RouterLink class="RouterLink-nav" to="/pokemones/fav"> FAV</RouterLink>
     </nav>
 
   </header>
 
   <RouterView />
 </template>
+
 <style lang="scss">
+nav {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+}
+
 header {
   height: 50px;
   position: relative;
@@ -24,7 +32,6 @@ header {
 }
 
 h1 {
-
   color: red;
 }
 
@@ -53,9 +60,5 @@ body {
   justify-content: center;
   align-items: center;
   background-color: white;
-
-  h1 {
-    color: red;
-  }
 }
 </style>

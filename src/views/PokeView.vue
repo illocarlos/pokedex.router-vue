@@ -3,9 +3,15 @@ import { UsegetData } from '../composable/getData';
 //este hook tiene acceso a los parametros es decir al params.name y recoge la informacion
 //de ese objeto en concreto
 import { useRoute } from 'vue-router';
+//importamos pinia que hara que agrege a un array una serie de pokemon haciendole push 
+import { useFavStore } from '@/store/fav'
+
 const route = useRoute();
 const { data, getData } = UsegetData()
+const useFav = useFavStore()
 //lo iniciaizamos y activamos el hook
+
+const { add, encuentraPoke } = useFav
 
 getData(`https://pokeapi.co/api/v2/pokemon/${route.params.name}`);
 
@@ -13,8 +19,9 @@ getData(`https://pokeapi.co/api/v2/pokemon/${route.params.name}`);
 
 <template>
     <div v-if="data" class="title-poke">
-        <h1>{{ $route.params.name }}</h1>
+        <h1>{{ $route.params.name.toUpperCase() }} N{{ data.id }}</h1>
 
+        <button :disabled="encuentraPoke(data.name)" @click="add(data)">agregar fav</button>
         <div class="date-poke">
             <div>
                 <p>normal</p>
